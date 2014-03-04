@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:ed23e95b35c341264163eb71b05e1576:e07945dd68a2e602b80eedb0a1d270dd:4a33461fbb1054411cce857d6041552a$ -->
+<TextureAtlas imagePath="powerhour.png">
+    <SubTexture name="add_icon.fw" x="960" y="125" width="56" height="56"/>
+    <SubTexture name="add_icon_opaque.fw" x="960" y="65" width="56" height="56"/>
+    <SubTexture name="clock_icon.fw" x="960" y="3" width="58" height="58"/>
+    <SubTexture name="cup.fw" x="781" y="273" width="192" height="208"/>
+    <SubTexture name="drawer_thumb.fw" x="876" y="544" width="92" height="88"/>
+    <SubTexture name="drink_text.fw" x="3" y="643" width="508" height="106"/>
+    <SubTexture name="how_to_play_link.fw" x="556" y="484" width="158" height="61"/>
+    <SubTexture name="manage_playlist_link.fw" x="556" y="356" width="170" height="46"/>
+    <SubTexture name="menu_label.fw" x="714" y="620" width="90" height="22"/>
+    <SubTexture name="orange_dividing_line.fw" x="3" y="3" width="639" height="2"/>
+    <SubTexture name="pause_button.fw" x="556" y="549" width="154" height="131"/>
+    <SubTexture name="save_button.fw" x="718" y="485" width="154" height="131"/>
+    <SubTexture name="share_button.fw" x="556" y="273" width="221" height="79"/>
+    <SubTexture name="share_link.fw" x="556" y="406" width="159" height="74"/>
+    <SubTexture name="simple_logo.fw" x="646" y="3" width="310" height="266"/>
+    <SubTexture name="skip_button.fw" x="876" y="485" width="93" height="55"/>
+    <SubTexture name="skip_photo_button.fw" x="3" y="441" width="549" height="198" frameX="0" frameY="0" frameWidth="549" frameHeight="200"/>
+    <SubTexture name="start_game_button.fw" x="3" y="9" width="614" height="226"/>
+    <SubTexture name="take_photo_button.fw" x="3" y="239" width="549" height="198" frameX="0" frameY="0" frameWidth="549" frameHeight="200"/>
+</TextureAtlas>
