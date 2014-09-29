@@ -1,6 +1,7 @@
 package com.reycogames.powerhour.screens
 {
 	import com.reycogames.powerhour.controls.ImageButton;
+	import com.reycogames.powerhour.controls.LargeAddButton;
 	import com.reycogames.powerhour.data.Playlist;
 	import com.reycogames.powerhour.manager.NativeDialogsManager;
 	import com.reycogames.powerhour.model.AppModel;
@@ -26,7 +27,8 @@ package com.reycogames.powerhour.screens
 		private var accessoryDictionary:Dictionary;
 		private var addIcon:ImageButton;
 		private var list:List;
-		private var ququedPlaylistForDelete:Object;
+		private var queuedPlaylistForDeletion:Object;
+		private var largeAddButton:LargeAddButton;
 		
 		public function PlaylistScreen()
 		{
@@ -36,20 +38,52 @@ package com.reycogames.powerhour.screens
 		
 		override protected function initializeHandler():void
 		{
-			PlaylistModel.loadData();
-			
 			super.initializeHandler();
 			
+			// load all the playlists
+			PlaylistModel.loadData();
+			var lists:Array = PlaylistModel.playlists;
+			
+			if(lists.length > 0)
+			{
+				createPlaylist( lists );
+			}
+			else
+			{
+				showAddButton();
+			}
+			
+			// add the "add" icon to the headeer to replace the cup icon
 			addIcon = new ImageButton( "add_icon.fw", AppModel.LOW_RES ? 50 : 75 );	
 			addIcon.onTrigger = addNewPlaylist;
 			this.headerProperties.rightItems = new <DisplayObject>
 				[
 					addIcon
 				];
+		}
+		
+		private function showAddButton():void
+		{
+			largeAddButton = new LargeAddButton();
+			largeAddButton.layoutData = new AnchorLayoutData(0,0,0,0);
+			largeAddButton.onTrigger = addNewPlaylist;
+			addChild( largeAddButton );
+		}
+		
+		private function createPlaylist( lists:Array ):void
+		{
+			if(largeAddButton)
+			{
+				largeAddButton.dispose();
+				removeChild( largeAddButton );
+				largeAddButton = null;
+			}
 			
+			// create a new list
 			list = new List();
 			list.addEventListener( Event.CHANGE, handlePlaylistSelected );
 			
+			// create an item renderer for the list with an "edit" button
 			list.itemRendererFactory = function():IListItemRenderer
 			{
 				var renderer:DefaultListItemRenderer = new DefaultListItemRenderer();
@@ -70,12 +104,11 @@ package com.reycogames.powerhour.screens
 				}
 				renderer.isLongPressEnabled = true;
 				return renderer;
-			}
+			}			
 			
+			// add event listeners for the list render	
 			list.addEventListener(FeathersEventType.RENDERER_ADD, list_rendererAddHandler);
 			list.addEventListener(FeathersEventType.RENDERER_REMOVE, list_rendererRemoveHandler);
-			
-			var lists:Array = PlaylistModel.playlists;
 			
 			list.dataProvider = new ListCollection( lists );
 			list.autoHideBackground = true;
@@ -98,14 +131,24 @@ package com.reycogames.powerhour.screens
 		private function renderer_longPressHandler(event:Event):void
 		{
 			var target:DefaultListItemRenderer = event.currentTarget as DefaultListItemRenderer;
-			ququedPlaylistForDelete = target.data;
+			queuedPlaylistForDeletion = target.data;
 			trace("Are you sure you want to delete " + target.data.title);
-			NativeDialogsManager.showDeletePlaylistConfirmation( target.data.title, handleDeletConfired );
+			NativeDialogsManager.showDeletePlaylistConfirmation( target.data.title, handleDeleteConfirmed );
 		} 
 		
-		private function handleDeletConfired():void
+		private function handleDeleteConfirmed():void
 		{
-			PlaylistModel.deletePlaylist( ququedPlaylistForDelete.title );
+			PlaylistModel.deletePlaylist( queuedPlaylistForDeletion.title );
+			
+			if(PlaylistModel.playlists.length == 0)
+			{
+				list.dispose();
+				removeChild( list );
+				list = null;
+				showAddButton();
+				return;
+			}
+			
 			list.dataProvider = new ListCollection( PlaylistModel.playlists );
 		}
 		
@@ -129,7 +172,10 @@ package com.reycogames.powerhour.screens
 		private function handleDialogClose( result:String ):void
 		{
 			PlaylistModel.addPlaylist( result );
-			list.dataProvider = new ListCollection( PlaylistModel.playlists);
+			if(list)
+				list.dataProvider = new ListCollection( PlaylistModel.playlists );
+			else
+				createPlaylist( PlaylistModel.playlists );
 		}
 		
 		override public function dispose():void

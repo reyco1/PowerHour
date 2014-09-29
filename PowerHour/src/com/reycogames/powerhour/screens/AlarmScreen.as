@@ -5,6 +5,9 @@ package com.reycogames.powerhour.screens
 	import com.reycogames.powerhour.model.AppModel;
 	import com.reycogames.powerhour.model.AppScreens;
 	
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
+	
 	import feathers.controls.ImageLoader;
 	import feathers.controls.LayoutGroup;
 	import feathers.controls.PanelScreen;
@@ -24,6 +27,8 @@ package com.reycogames.powerhour.screens
 		private var logoImage:ImageLoader;
 		private var drinkImage:ImageLoader;
 		private var container:LayoutGroup;
+		private var timer:uint;
+		
 		public function AlarmScreen()
 		{
 			super();
@@ -65,18 +70,27 @@ package com.reycogames.powerhour.screens
 			
 			container.touchable = true;
 			container.addEventListener(TouchEvent.TOUCH, handleClicked);
+			
+			timer = setTimeout( determineNextScreen, 6000 );
 		}
 		
 		private function handleClicked( event:TouchEvent ):void
 		{
+			clearTimeout( timer );
+			
 			var touch:Touch = event.getTouch(this, TouchPhase.BEGAN);
 			if (touch)
 			{
 				container.removeEventListener(TouchEvent.TOUCH, handleClicked); 
 				CurrentSongManager.stopAlarm();
-				
-				AppModel.navigator.showScreen( AppScreens.TAKE_PHOTO_SCREEN );
+				determineNextScreen();				
 			}			
+		}
+		
+		private function determineNextScreen():void
+		{
+			var nextScreen:String = AppModel.MINUTES == 0 ? AppScreens.TAKE_PHOTO_OR_SKIP_SCREEN : AppScreens.COUNTDOWN_SCREEN;			
+			AppModel.navigator.showScreen( nextScreen );
 		}
 		
 		override protected function draw():void
@@ -90,6 +104,7 @@ package com.reycogames.powerhour.screens
 		
 		override public function dispose():void
 		{
+			clearTimeout( timer );
 			CurrentSongManager.stopAlarm();
 			super.dispose();
 		}

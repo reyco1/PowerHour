@@ -4,7 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.2.1</string>
+        <string>3.3.1</string>
+        <key>fileName</key>
+        <string>C:/Users/Reynaldo/Adobe Flash Builder 4.7/PowerHour-all/assets/images/powerhour.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -59,6 +61,8 @@
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
         <uint>0</uint>
+        <key>webpQualityLevel</key>
+        <uint>101</uint>
         <key>textureSubPath</key>
         <string></string>
         <key>textureFormat</key>
@@ -88,7 +92,7 @@
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
             <key>forceSquared</key>
             <false/>
             <key>forceWordAligned</key>
@@ -185,6 +189,20 @@
             <filename>powerhour/drink_text.fw.png</filename>
             <filename>powerhour/take_photo_button.fw.png</filename>
             <filename>powerhour/skip_photo_button.fw.png</filename>
+            <filename>powerhour/snap_pic_button.fw.png</filename>
+            <filename>powerhour/retake_button.fw.png</filename>
+            <filename>powerhour/awesome_button.fw.png</filename>
+            <filename>powerhour/potty.fw.png</filename>
+            <filename>powerhour/exit_link.fw.png</filename>
+            <filename>powerhour/home_link.fw.png</filename>
+            <filename>powerhour/fb.png</filename>
+            <filename>powerhour/twitter.png</filename>
+            <filename>powerhour/mail.png</filename>
+            <filename>powerhour/google_plus.png</filename>
+            <filename>powerhour/play_again.png</filename>
+            <filename>powerhour/share_bt_lg.png</filename>
+            <filename>powerhour/add_icon_large.fw.png</filename>
+            <filename>powerhour/start_text.fw.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

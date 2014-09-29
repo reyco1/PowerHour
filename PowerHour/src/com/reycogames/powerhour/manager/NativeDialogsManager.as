@@ -1,44 +1,72 @@
 package com.reycogames.powerhour.manager
 {
-	import com.distriqt.extension.dialog.Dialog;
-	import com.distriqt.extension.dialog.events.DialogEvent;
+	import com.milkmangames.nativeextensions.CoreMobile;
+	import com.milkmangames.nativeextensions.events.CMDialogEvent;
 
 	public class NativeDialogsManager
 	{
 		public static var onCloseHandler:Function;
 		
+		public static function initialize():void
+		{
+			if(CoreMobile.isSupported())
+			{
+				CoreMobile.create();
+			}
+			else {
+				trace("[NativeDialogsManager]", "Core Mobile only works on iOS or Android.");
+			}
+		}
+		
 		public static function showNewPlaylistDialog( onCloseHandler:Function ):void
 		{
-			NativeDialogsManager.onCloseHandler = onCloseHandler;
-			Dialog.service.showTextInputAlertDialog(0, "New Playlist", "Enter the name for your new playlist.", false, "Cancel", ["Add Playlist"]);
-			Dialog.service.addEventListener(DialogEvent.DIALOG_CLOSED, handleNewPlaylistDialogClosed);
+			CoreMobile.mobile.showModalInputDialog("New Playlist", "Enter the name for your new playlist.", "OK", "Type name here", "Cancel").
+				addDismissListener(function(e:CMDialogEvent):void
+				{
+					if (e.selectedButtonLabel=="OK") 
+					{
+						trace("[NativeDialogsManager]", "Your Name: "+e.modalUserInput);
+						onCloseHandler.call(null, e.modalUserInput);
+					} 
+					else 
+					{
+						trace("[NativeDialogsManager]", "You didn't enter a name.");
+					}
+				});
 		}
 		
 		public static function showDeletePlaylistConfirmation( playlistName:String, onCloseHandler:Function ):void
 		{
-			NativeDialogsManager.onCloseHandler = onCloseHandler;
-			Dialog.service.showAlertDialog( 1, "Delete Playlist?", "Are you sure you want to delete " + playlistName + "?", "Cancel", ["Delete"]);
-			Dialog.service.addEventListener(DialogEvent.DIALOG_CLOSED, handleDeletePlaylistConfirmationDialogClosed);
+			CoreMobile.mobile.showModalYesNoDialog("Delete Playlist?", "Are you sure you want to delete " + playlistName + "?", "Cancel", "Delete").
+				addDismissListener(function(e:CMDialogEvent):void
+				{
+					if (e.selectedButtonLabel=="Delete") 
+					{
+						trace("[NativeDialogsManager]", "Deleting playlist");
+						onCloseHandler.call();
+					} 
+					else 
+					{
+						trace("[NativeDialogsManager]", "Cancelling playlist delete");
+					}
+				});
 		}
 		
-		protected static function handleDeletePlaylistConfirmationDialogClosed(event:DialogEvent):void
+		public static function showAreYouSureDialog( onCloseHandler:Function ):void
 		{
-			Dialog.service.removeEventListener(DialogEvent.DIALOG_CLOSED, handleDeletePlaylistConfirmationDialogClosed);
-			if(event.data != "0")
-			{
-				NativeDialogsManager.onCloseHandler.call();
-			}
-			NativeDialogsManager.onCloseHandler = null;
+			CoreMobile.mobile.showModalYesNoDialog("Stop playing?", "Are you sure you want to end this party?", "Yes I do!", "Nope.").
+				addDismissListener(function(e:CMDialogEvent):void
+				{
+					if (e.selectedButtonLabel=="Yes I do!") 
+					{
+						onCloseHandler.call();
+					}
+				});
 		}
 		
-		protected static function handleNewPlaylistDialogClosed(event:DialogEvent):void
+		public static function showNoPlaylistSelectedAlert():void
 		{
-			Dialog.service.removeEventListener(DialogEvent.DIALOG_CLOSED, handleNewPlaylistDialogClosed);
-			if(event.data == "1" && event.inputA != "")
-			{
-				NativeDialogsManager.onCloseHandler.call( null, event.inputA );
-			}
-			NativeDialogsManager.onCloseHandler = null;
+			CoreMobile.mobile.showModalConfirmationDialog("Uh oh!?", "Please make sure you selected a Playlist before you start.", "OK");
 		}
 	}
 }

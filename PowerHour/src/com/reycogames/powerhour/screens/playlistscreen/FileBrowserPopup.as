@@ -15,7 +15,6 @@ package com.reycogames.powerhour.screens.playlistscreen
 	import feathers.controls.renderers.IListItemRenderer;
 	import feathers.core.PopUpManager;
 	import feathers.data.ListCollection;
-	import feathers.events.FeathersEventType;
 	import feathers.layout.HorizontalLayout;
 	import feathers.layout.VerticalLayout;
 	

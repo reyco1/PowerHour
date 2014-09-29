@@ -3,16 +3,23 @@ package com.reycogames.powerhour.screens
 	import com.reycogames.powerhour.controls.ImageButton;
 	import com.reycogames.powerhour.model.AppModel;
 	import com.reycogames.powerhour.model.AppScreens;
+	import com.reycogames.powerhour.screens.core.SharePopup;
 	
 	import feathers.controls.ImageLoader;
 	import feathers.controls.LayoutGroup;
 	import feathers.controls.PanelScreen;
+	import feathers.core.PopUpManager;
 	import feathers.events.FeathersEventType;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import feathers.layout.VerticalLayout;
 	
+	import starling.display.DisplayObject;
+	import starling.display.Quad;
 	import starling.events.Event;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import starling.textures.TextureSmoothing;
 	
 	public class StartScreen extends PanelScreen
@@ -22,6 +29,7 @@ package com.reycogames.powerhour.screens
 		private var shareButton:ImageButton;
 		private var container:LayoutGroup;
 		private var verticalLayout:VerticalLayout;
+		private var sharePopup:SharePopup;
 		public function StartScreen()
 		{
 			super();
@@ -57,6 +65,25 @@ package com.reycogames.powerhour.screens
 			container.addChild( startGameButton );
 			
 			shareButton = new ImageButton( "share_button.fw", stage.stageWidth * 0.4 );
+			shareButton.onTrigger = function():void
+			{
+				sharePopup = new SharePopup();
+				PopUpManager.addPopUp( sharePopup, true, true, function():DisplayObject
+				{
+					var quad:Quad = new Quad(100, 100, 0x000000);
+					quad.alpha = 0.75;
+					quad.touchable = true;
+					quad.addEventListener( TouchEvent.TOUCH, function(e:TouchEvent):void
+					{
+						var touch:Touch = e.getTouch(quad);
+						if( touch && touch.phase == TouchPhase.BEGAN )
+						{
+							PopUpManager.removePopUp( sharePopup );
+						}
+					});
+					return quad;
+				});
+			}
 			container.addChild( shareButton );
 		}
 		

@@ -2,9 +2,8 @@ package com.reycogames.powerhour
 {
 	import com.reycogames.powerhour.data.EmbeddedAssets;
 	import com.reycogames.powerhour.drawers.LeftDrawer;
-	import com.reycogames.powerhour.model.AppModel;
-	import com.reycogames.powerhour.model.AppScreens;
 	import com.reycogames.powerhour.manager.ScreenManager;
+	import com.reycogames.powerhour.model.AppModel;
 	import com.reycogames.powerhour.screens.SplashScreen;
 	import com.reycogames.powerhour.themes.PowerHourTheme;
 	
@@ -23,9 +22,11 @@ package com.reycogames.powerhour
 		
 		private function initializeHandler( event:Event ):void
 		{
+			AppModel.STARLING_SATGE = stage;
 			EmbeddedAssets.initialize();
 			
-			new PowerHourTheme();			
+			new PowerHourTheme(stage, true);
+						
 			content = new SplashScreen( handleLoadComplete );
 			
 			AppModel.LOW_RES = stage.stageWidth < 720;
@@ -38,8 +39,6 @@ package com.reycogames.powerhour
 			
 			leftDrawer = new LeftDrawer();
 			leftDrawerToggleEventType = ScreenManager.TOGGLE_LEFT_DRAWER;
-			
-			AppModel.navigator.showScreen( AppScreens.START_SCREEN );
 		}
 	}
 }

@@ -607,7 +607,7 @@ package feathers.themes
 
 		protected function scrollTextInitializer(text:ScrollText):void
 		{
-			text.textFormat = this.lightTextFormat;
+			text.textFormat = new TextFormat("SourceSansProSemibold", 40 * this.scale, LIGHT_TEXT_COLOR, true);
 			text.embedFonts = true;
 			text.paddingTop = text.paddingBottom = text.paddingLeft = 32 * this.scale;
 			text.paddingRight = 36 * this.scale;

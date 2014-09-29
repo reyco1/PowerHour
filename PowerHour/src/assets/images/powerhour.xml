@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:ed23e95b35c341264163eb71b05e1576:e07945dd68a2e602b80eedb0a1d270dd:4a33461fbb1054411cce857d6041552a$ -->
+<!-- $TexturePacker:SmartUpdate:89cd58925e16c09d789940b3e5a60175:02d10cb0aa7002ece4e70b06d9d2d47d:4a33461fbb1054411cce857d6041552a$ -->
 <TextureAtlas imagePath="powerhour.png">
-    <SubTexture name="add_icon.fw" x="960" y="125" width="56" height="56"/>
-    <SubTexture name="add_icon_opaque.fw" x="960" y="65" width="56" height="56"/>
-    <SubTexture name="clock_icon.fw" x="960" y="3" width="58" height="58"/>
-    <SubTexture name="cup.fw" x="781" y="273" width="192" height="208"/>
-    <SubTexture name="drawer_thumb.fw" x="876" y="544" width="92" height="88"/>
-    <SubTexture name="drink_text.fw" x="3" y="643" width="508" height="106"/>
-    <SubTexture name="how_to_play_link.fw" x="556" y="484" width="158" height="61"/>
-    <SubTexture name="manage_playlist_link.fw" x="556" y="356" width="170" height="46"/>
-    <SubTexture name="menu_label.fw" x="714" y="620" width="90" height="22"/>
-    <SubTexture name="orange_dividing_line.fw" x="3" y="3" width="639" height="2"/>
-    <SubTexture name="pause_button.fw" x="556" y="549" width="154" height="131"/>
-    <SubTexture name="save_button.fw" x="718" y="485" width="154" height="131"/>
-    <SubTexture name="share_button.fw" x="556" y="273" width="221" height="79"/>
-    <SubTexture name="share_link.fw" x="556" y="406" width="159" height="74"/>
-    <SubTexture name="simple_logo.fw" x="646" y="3" width="310" height="266"/>
-    <SubTexture name="skip_button.fw" x="876" y="485" width="93" height="55"/>
-    <SubTexture name="skip_photo_button.fw" x="3" y="441" width="549" height="198" frameX="0" frameY="0" frameWidth="549" frameHeight="200"/>
-    <SubTexture name="start_game_button.fw" x="3" y="9" width="614" height="226"/>
-    <SubTexture name="take_photo_button.fw" x="3" y="239" width="549" height="198" frameX="0" frameY="0" frameWidth="549" frameHeight="200"/>
+    <SubTexture name="add_icon.fw" x="565" y="441" width="56" height="56"/>
+    <SubTexture name="add_icon_large.fw" x="3" y="233" width="400" height="400"/>
+    <SubTexture name="add_icon_opaque.fw" x="504" y="576" width="56" height="56"/>
+    <SubTexture name="awesome_button.fw" x="1174" y="291" width="389" height="140"/>
+    <SubTexture name="clock_icon.fw" x="1432" y="854" width="58" height="58"/>
+    <SubTexture name="cup.fw" x="960" y="427" width="192" height="208"/>
+    <SubTexture name="drawer_thumb.fw" x="1459" y="648" width="92" height="88"/>
+    <SubTexture name="drink_text.fw" x="621" y="205" width="508" height="106"/>
+    <SubTexture name="exit_link.fw" x="1297" y="854" width="131" height="70" frameX="-4" frameY="-4" frameWidth="159" frameHeight="74"/>
+    <SubTexture name="fb" x="1065" y="647" width="228" height="208"/>
+    <SubTexture name="google_plus" x="833" y="697" width="228" height="208"/>
+    <SubTexture name="home_link.fw" x="1297" y="720" width="149" height="68" frameX="-1" frameY="-2" frameWidth="159" frameHeight="74"/>
+    <SubTexture name="how_to_play_link.fw" x="1297" y="648" width="158" height="68"/>
+    <SubTexture name="mail" x="601" y="697" width="228" height="208"/>
+    <SubTexture name="manage_playlist_link.fw" x="646" y="909" width="170" height="54"/>
+    <SubTexture name="menu_label.fw" x="960" y="639" width="90" height="22"/>
+    <SubTexture name="orange_dividing_line.fw" x="3" y="953" width="639" height="2"/>
+    <SubTexture name="pause_button.fw" x="1388" y="435" width="154" height="131"/>
+    <SubTexture name="play_again" x="1174" y="147" width="389" height="140" frameX="0" frameY="0" frameWidth="391" frameHeight="140"/>
+    <SubTexture name="potty.fw" x="407" y="233" width="171" height="204"/>
+    <SubTexture name="retake_button.fw" x="1297" y="792" width="160" height="58"/>
+    <SubTexture name="save_button.fw" x="407" y="441" width="154" height="131"/>
+    <SubTexture name="share_bt_lg" x="1174" y="3" width="389" height="140" frameX="0" frameY="0" frameWidth="391" frameHeight="140"/>
+    <SubTexture name="share_button.fw" x="1065" y="859" width="221" height="79"/>
+    <SubTexture name="share_link.fw" x="1388" y="570" width="159" height="74"/>
+    <SubTexture name="simple_logo.fw" x="646" y="427" width="310" height="266"/>
+    <SubTexture name="skip_button.fw" x="407" y="576" width="93" height="55"/>
+    <SubTexture name="skip_photo_button.fw" x="3" y="637" width="549" height="198" frameX="0" frameY="0" frameWidth="549" frameHeight="200"/>
+    <SubTexture name="snap_pic_button.fw" x="3" y="839" width="594" height="110"/>
+    <SubTexture name="start_game_button.fw" x="3" y="3" width="614" height="226"/>
+    <SubTexture name="start_text.fw" x="601" y="315" width="569" height="108"/>
+    <SubTexture name="take_photo_button.fw" x="621" y="3" width="549" height="198" frameX="0" frameY="0" frameWidth="549" frameHeight="200"/>
+    <SubTexture name="twitter" x="1156" y="435" width="228" height="208"/>
 </TextureAtlas>

@@ -3,11 +3,15 @@ package com.reycogames.powerhour.screens
 	import com.reycogames.powerhour.controls.CountDownCup;
 	import com.reycogames.powerhour.controls.PauseStopControls;
 	import com.reycogames.powerhour.controls.SongLabel;
-	import com.reycogames.powerhour.manager.GameTimer;
+	import com.reycogames.powerhour.manager.AppTimer;
+	import com.reycogames.powerhour.manager.PauseManager;
 	import com.reycogames.powerhour.screens.core.AbstractScreen;
+	import com.reycogames.powerhour.screens.countdownscreen.PottyBreakView;
+	import com.reycogames.powerhour.screens.playlistscreen.FileBrowserPopup;
 	
 	import feathers.controls.ImageLoader;
 	import feathers.controls.LayoutGroup;
+	import feathers.core.PopUpManager;
 	import feathers.events.FeathersEventType;
 	import feathers.layout.AnchorLayoutData;
 	
@@ -42,15 +46,24 @@ package com.reycogames.powerhour.screens
 			addChild( countdownCup );
 			
 			pauseStopControls = new PauseStopControls();
+			pauseStopControls.onPause = showPottyBreakPopup;
 			addChild( pauseStopControls );
 			
-			GameTimer.init( true );			
-			countdownCup.text = GameTimer.seconds;
+			AppTimer.init( true );			
+			countdownCup.text = AppTimer.seconds;
 			
-			GameTimer.update = function():void
+			AppTimer.update = function():void
 			{
-				countdownCup.text = GameTimer.seconds;
+				countdownCup.text = AppTimer.seconds;
 			}
+		}
+		
+		private function showPottyBreakPopup():void
+		{
+			PauseManager.pause();
+			
+			var popup:PottyBreakView = new PottyBreakView();
+			PopUpManager.addPopUp( popup, true, true );
 		}
 		
 		override protected function draw():void
@@ -70,7 +83,7 @@ package com.reycogames.powerhour.screens
 		
 		override public function dispose():void
 		{
-			GameTimer.clear();
+			AppTimer.clear();
 			super.dispose();
 		}
 	}

@@ -1,51 +1,65 @@
 package com.reycogames.powerhour.screens
 {
-	import com.reycogames.powerhour.controls.ImageButton;
+	import com.reycogames.powerhour.controls.TakePictureButton;
+	import com.reycogames.powerhour.manager.CameraManager;
 	import com.reycogames.powerhour.model.AppModel;
 	import com.reycogames.powerhour.model.AppScreens;
 	import com.reycogames.powerhour.screens.core.AbstractScreen;
 	
 	import feathers.controls.LayoutGroup;
 	import feathers.layout.AnchorLayoutData;
-	import feathers.layout.VerticalLayout;
 	
 	public class TakePhotoScreen extends AbstractScreen
 	{
+		private var takePictureButton:TakePictureButton;
 		private var container:LayoutGroup;
-		private var containerLayout:VerticalLayout;
-		private var takePhotoButton:ImageButton;
-		private var skipPhotoButton:ImageButton;
 		
 		public function TakePhotoScreen()
 		{
-			super( "TAKE THE PHOTO ;)" );
+			super("SHOOT!");
 		}
 		
 		override protected function initializeHandler():void
 		{
 			super.initializeHandler();
 			
-			containerLayout = new VerticalLayout();
-			containerLayout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER;
-			containerLayout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
-			containerLayout.gap = 150;
-			
 			container = new LayoutGroup();
-			container.layout = containerLayout;
 			container.layoutData = new AnchorLayoutData(0, 0, 0, 0);
-			addChild( container );
+			addChild( container );		
 			
-			takePhotoButton = new ImageButton("take_photo_button.fw", stage.stageWidth * 0.80);
-			container.addChild( takePhotoButton );
+			takePictureButton = new TakePictureButton();
+			takePictureButton.onTrigger = takePhoto;
+			container.addChild( takePictureButton );
 			
-			skipPhotoButton = new ImageButton("skip_photo_button.fw", stage.stageWidth * 0.80);
-			skipPhotoButton.onTrigger = gotoCountdownScreen;
-			container.addChild( skipPhotoButton );
+			CameraManager.startVideoCapture();
+			container.addChild( CameraManager.getVideo() );
 		}
 		
-		private function gotoCountdownScreen():void
+		private function takePhoto():void
 		{
-			AppModel.navigator.showScreen( AppScreens.COUNTDOWN_SCREEN );
+			AppModel.assetManager.getSound("shutterSound").play();
+			captureImageData()
+		}
+		
+		protected function captureImageData():void
+		{
+			CameraManager.stopVideoCapture();
+			AppModel.navigator.showScreen( AppScreens.CONFIRM_SNAPSHOT_SCREEN );
+		}
+		
+		override protected function draw():void
+		{
+			super.draw();
+			container.validate();
+			takePictureButton.y = container.height - takePictureButton.height;
+			
+			CameraManager.height = takePictureButton.y;
+		}
+		
+		override public function dispose():void
+		{
+			super.dispose();
+			CameraManager.dispose();
 		}
 	}
 }

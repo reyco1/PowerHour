@@ -22,8 +22,6 @@ package com.reycogames.powerhour.screens.setupgamescreen
 		public function LengthButton()
 		{
 			super();
-			
-			AppModel.MINUTES = 60;
 		}
 		
 		override protected function initializeHandler(event:Event):void

@@ -1,12 +1,13 @@
 package com.reycogames.powerhour.screens.playlistscreen
 {
 	import com.reycogames.powerhour.controls.ImageButton;
+	import com.reycogames.powerhour.controls.LargeAddButton;
 	import com.reycogames.powerhour.model.AppModel;
+	import com.reycogames.powerhour.model.AppScreens;
 	import com.reycogames.powerhour.model.PlaylistModel;
 	import com.reycogames.powerhour.screens.core.AbstractScreen;
 	
 	import flash.utils.Dictionary;
-	import flash.utils.setTimeout;
 	
 	import feathers.controls.Button;
 	import feathers.controls.List;
@@ -18,12 +19,17 @@ package com.reycogames.powerhour.screens.playlistscreen
 	
 	import starling.display.DisplayObject;
 	import starling.events.Event;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	
 	public class PlaylistView extends AbstractScreen
 	{
 		private var accessoryDictionary:Dictionary;
 		private var addIcon:ImageButton;
 		private var list:List;
+		private var doneButton:Button;
+		private var largeAddButton:LargeAddButton;
 		
 		public function PlaylistView()
 		{
@@ -41,6 +47,40 @@ package com.reycogames.powerhour.screens.playlistscreen
 				[
 					addIcon
 				];
+			
+			var tracks:Array = AppModel.playlistSetForEdit.tracks;
+			if(tracks.length > 0)
+			{
+				createTrackList( tracks );
+			}
+			else
+			{
+				showAddButton();
+			}			
+			
+			doneButton = new Button();
+			doneButton.label = "Done";
+			doneButton.setSize((AppModel.STARLING_SATGE.stageWidth * 0.25), 100);
+			doneButton.addEventListener( TouchEvent.TOUCH, handlClicked );
+			addChild(doneButton);
+		}
+		
+		private function showAddButton():void
+		{
+			largeAddButton = new LargeAddButton();
+			largeAddButton.layoutData = new AnchorLayoutData(0,0,0,0);
+			largeAddButton.onTrigger = addNewTracks;
+			addChild( largeAddButton );
+		}
+		
+		private function createTrackList(tracks:Array):void
+		{
+			if(largeAddButton)
+			{
+				largeAddButton.dispose();
+				removeChild( largeAddButton );
+				largeAddButton = null;
+			}
 			
 			list = new List();
 			
@@ -62,24 +102,53 @@ package com.reycogames.powerhour.screens.playlistscreen
 					}
 					return button;
 				};
-					
+				
 				return renderer;
 			};
-				
-			var tracks:Array = AppModel.playlistSetForEdit.tracks;
+			
 			list.dataProvider = new ListCollection( tracks );
 			
 			list.autoHideBackground = true;
 			list.isSelectable = true;
 			list.clipContent = true;
 			list.layoutData = new AnchorLayoutData(0,0,0,0);
-			addChild( list );
+			addChildAt( list, 0 );
+		}
+		
+		private function handlClicked( event:TouchEvent ):void
+		{
+			var touch:Touch = event.getTouch(this);
+			
+			if( touch && touch.phase == TouchPhase.BEGAN )
+			{
+				AppModel.navigator.showScreen( AppScreens.PLAYLIST_SCREEN );
+			}
+		}
+		
+		override protected function draw():void
+		{
+			super.draw();
+			
+			doneButton.validate();
+			
+			doneButton.x = (stage.stageWidth  - doneButton.width) * 0.5;
+			doneButton.y = (stage.stageHeight - doneButton.height - 20 - this.header.height);
 		}
 		
 		private function handleRemoveButtonTriggered( event:Event ):void
 		{
 			var item:Object = accessoryDictionary[ event.currentTarget ];
 			PlaylistModel.deleteTrack( AppModel.playlistSetForEdit.title, item.name );
+			
+			if(AppModel.playlistSetForEdit.tracks.length == 0)
+			{
+				list.dispose();
+				removeChild( list );
+				list = null;				
+				showAddButton();
+				return;
+			}
+			
 			list.dataProvider = new ListCollection( AppModel.playlistSetForEdit.tracks );
 		}
 		
@@ -97,7 +166,11 @@ package com.reycogames.powerhour.screens.playlistscreen
 			{
 				PlaylistModel.addTrack( AppModel.playlistSetForEdit.title, newTracks[a].name, newTracks[a].url, a == newTracks.length-1 );
 			}
-			list.dataProvider = new ListCollection( AppModel.playlistSetForEdit.tracks );
+			
+			if(list)
+				list.dataProvider = new ListCollection( AppModel.playlistSetForEdit.tracks );
+			else
+				createTrackList( AppModel.playlistSetForEdit.tracks );
 		}
 	}
 }

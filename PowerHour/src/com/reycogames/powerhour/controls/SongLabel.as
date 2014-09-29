@@ -42,8 +42,7 @@ package com.reycogames.powerhour.controls
 			addChild( skipButton );
 			
 			CurrentSongManager.update();
-			
-			playNextSong();
+			text = CurrentSongManager.currentSongName;
 			
 			updateLayout();
 		}
@@ -61,7 +60,7 @@ package com.reycogames.powerhour.controls
 		
 		private function playNextSong():void
 		{
-			CurrentSongManager.playNextSong( false );
+			CurrentSongManager.playNextSong();
 			text = CurrentSongManager.currentSongName;
 		}
 		
@@ -84,12 +83,6 @@ package com.reycogames.powerhour.controls
 			
 			nowPlayingText.x = songText.x + songText.width;
 			nowPlayingText.y = skipButton.y + (( skipButton.height - nowPlayingText.height ) * 0.5 );
-		}
-		
-		override public function dispose():void
-		{
-			stopCurrentSong();
-			super.dispose();
 		}
 	}
 }

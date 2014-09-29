@@ -22,7 +22,7 @@ package com.reycogames.powerhour.manager
 			if(!isPaused)
 			{
 				isPaused = true;
-				GameTimer.pause();
+				AppTimer.pause();
 				CurrentSongManager.pause();
 				pausedBecauseOfLostContext = lostContext;
 			}
@@ -35,7 +35,7 @@ package com.reycogames.powerhour.manager
 				if((pausedBecauseOfLostContext && returnFromLostContext) || (!pausedBecauseOfLostContext && !returnFromLostContext))
 				{
 					isPaused = false;
-					GameTimer.resume();
+					AppTimer.resume();
 					CurrentSongManager.resume();
 				}
 			}

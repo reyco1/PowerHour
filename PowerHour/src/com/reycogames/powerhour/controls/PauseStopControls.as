@@ -1,5 +1,7 @@
 package com.reycogames.powerhour.controls
 {
+	import com.reycogames.powerhour.manager.CurrentSongManager;
+	import com.reycogames.powerhour.manager.NativeDialogsManager;
 	import com.reycogames.powerhour.manager.PauseManager;
 	import com.reycogames.powerhour.model.AppColors;
 	import com.reycogames.powerhour.model.AppFonts;
@@ -17,7 +19,9 @@ package com.reycogames.powerhour.controls
 		private var pauseButton:ImageButton;
 		private var stopButton:ImageButton;
 		private var shotsLeftlabel:CustomLabel;
-		private var shoteRemainingContianer:LayoutGroup;
+		private var shotsRemainingContianer:LayoutGroup;
+		public  var onPause:Function;
+		
 		public function PauseStopControls()
 		{
 			addEventListener( FeathersEventType.INITIALIZE, handleInitialize );
@@ -26,7 +30,13 @@ package com.reycogames.powerhour.controls
 		private function handleInitialize( event:Event ):void
 		{
 			pauseButton = new ImageButton( "pause_button.fw", stage.stageWidth * 0.3 );
-			pauseButton.onTrigger = PauseManager.toggle;
+			pauseButton.onTrigger = function():void
+			{
+				PauseManager.toggle;
+				
+				if(onPause != null)
+					onPause.call();
+			};
 			addChild( pauseButton );
 			
 			var containerLayout:VerticalLayout = new VerticalLayout();
@@ -34,25 +44,32 @@ package com.reycogames.powerhour.controls
 			containerLayout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
 			containerLayout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER;
 			
-			shoteRemainingContianer = new LayoutGroup();
-			shoteRemainingContianer.layout = containerLayout;
-			addChild( shoteRemainingContianer );			
+			shotsRemainingContianer = new LayoutGroup();
+			shotsRemainingContianer.layout = containerLayout;
+			addChild( shotsRemainingContianer );			
 			
 			shotsLeftlabel = new CustomLabel( AppFonts.ARIAL_BLACK, AppColors.DARK_RED_ORANGE, 100 );
-			shotsLeftlabel.text = AppModel.MINUTES.toString();
-			shoteRemainingContianer.addChild( shotsLeftlabel );
+			shotsLeftlabel.text = AppModel.MINUTES < 10 ? "0" + AppModel.MINUTES.toString() : AppModel.MINUTES.toString();
+			shotsRemainingContianer.addChild( shotsLeftlabel );
 			
 			var subText:CustomLabel = new CustomLabel( AppFonts.ARIAL, AppColors.WHITE, 20 );
 			subText.text = "SHOTS LEFT";
-			shoteRemainingContianer.addChild( subText );
+			shotsRemainingContianer.addChild( subText );
 			
 			stopButton = new ImageButton( "save_button.fw", stage.stageWidth * 0.3 );
-			stopButton.onTrigger = gotoMainScreen;
+			stopButton.onTrigger = showAreYouSureDialog;
 			addChild( stopButton );
+		}
+		
+		private function showAreYouSureDialog():void
+		{
+			NativeDialogsManager.showAreYouSureDialog( gotoMainScreen );
 		}
 		
 		private function gotoMainScreen():void
 		{
+			CurrentSongManager.stop();
+			AppModel.MINUTES = 60;
 			AppModel.navigator.showScreen( AppScreens.START_SCREEN );
 		}
 		
@@ -62,12 +79,12 @@ package com.reycogames.powerhour.controls
 			
 			pauseButton.validate();
 			stopButton.validate();
-			shoteRemainingContianer.validate();
+			shotsRemainingContianer.validate();
 			
 			stopButton.x = stage.stageWidth - stopButton.width;
 			
-			shoteRemainingContianer.y = -30
-			shoteRemainingContianer.x = (stage.stageWidth - shotsLeftlabel.width) * 0.5
+			shotsRemainingContianer.y = -30
+			shotsRemainingContianer.x = (stage.stageWidth - shotsLeftlabel.width) * 0.5
 		}
 	}
 }

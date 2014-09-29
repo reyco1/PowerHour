@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="PowerHour.as" projectUUID="cb8cd088-1186-48ff-a61c-5890a21d5e44" version="11">
+<actionScriptProperties analytics="false" mainApplicationPath="PowerHour.as" projectUUID="ad1ad559-1406-4dfc-b7f1-d68ab7af31a0" version="11">
   <compiler additionalCompilerArguments="-locale en_US" advancedTelemetry="false" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" useFlashSDK="true" verifyDigests="true" warn="true">
-    <compilerSourcePath/>
+    <compilerSourcePath>
+      <compilerSourcePathEntry kind="1" linkType="1" path="system"/>
+    </compilerSourcePath>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
         <excludedEntries>
@@ -34,9 +36,12 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="1" linkType="1" path="libs"/>
-      <libraryPathEntry kind="5" linkType="2" path="ane/com.distriqt.Camera.ane"/>
-      <libraryPathEntry kind="5" linkType="2" path="ane/com.distriqt.Dialog.ane"/>
+      <libraryPathEntry kind="3" linkType="1" path="F:/AS3_LIBS/greensock/greensock.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="F:/AS3_LIBS/feathers/swc/feathers.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="F:/AS3_LIBS/starling/starling/bin/starling.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="5" linkType="2" path="F:/ANEs/distriqt/camera/lib/com.distriqt.Camera.ane"/>
+      <libraryPathEntry kind="5" linkType="2" path="F:/ANEs/milkman/CoreMobile/extension/com.milkmangames.extensions.CoreMobile.ane"/>
+      <libraryPathEntry kind="5" linkType="2" path="F:/ANEs/milkman/AdMob/extension/com.milkmangames.extensions.AdMob.ane"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
@@ -50,19 +55,36 @@
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
-    <buildTarget airDownloadURL="https://market.android.com/details?id=com.adobe.air" androidSettingsVersion="2" buildTargetName="device" isCurrent="true" platformId="com.adobe.flexide.multiplatform.android.platform">
-      <airSettings airCertificatePath="F:/certificate.p12" airTimestamp="true" anePathSet="true" version="1">
+    <buildTarget buildTargetName="device" iosSettingsVersion="2" isCurrent="true" platformId="com.adobe.flexide.multiplatform.ios.platform" provisioningFile="F:/ReycoGames/clients/Roland Fauster/PowerHour/certificates/powerhourProfile2.mobileprovision" releasePackageType="ipa-ad-hoc">
+      <multiPlatformSettings enabled="true" hideAneLibSymbols="0" includePlatformLibs="false" platformID="com.adobe.flexide.multiplatform.ios.platform" reducedSizePackaging="false" version="1"/>
+      <airSettings airCertificatePath="F:/ReycoGames/clients/Roland Fauster/PowerHour/certificates/Rey Dev.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
         <anePaths>
-          <anePathEntry path="ane/com.distriqt.Camera.ane"/>
-          <anePathEntry path="ane/com.distriqt.Dialog.ane"/>
+          <anePathEntry path="F:/ANEs/distriqt/camera/lib/com.distriqt.Camera.ane"/>
+          <anePathEntry path="F:/ANEs/milkman/CoreMobile/extension/com.milkmangames.extensions.CoreMobile.ane"/>
+          <anePathEntry path="F:/ANEs/milkman/AdMob/extension/com.milkmangames.extensions.AdMob.ane"/>
         </anePaths>
         <newLaunchParams/>
         <modifiedLaunchParams/>
         <newPackagingParams/>
         <modifiedPackagingParams/>
       </airSettings>
+      <actionScriptSettings version="1"/>
+    </buildTarget>
+    <buildTarget airDownloadURL="https://market.android.com/details?id=com.adobe.air" androidSettingsVersion="2" buildTargetName="device" isCurrent="true" platformId="com.adobe.flexide.multiplatform.android.platform">
       <multiPlatformSettings enabled="true" hideAneLibSymbols="0" includePlatformLibs="false" platformID="com.adobe.flexide.multiplatform.android.platform" reducedSizePackaging="false" version="1"/>
+      <airSettings airCertificatePath="F:/certificate.p12" airTimestamp="true" anePathSet="true" version="1">
+        <airExcludes/>
+        <anePaths>
+          <anePathEntry path="F:/ANEs/distriqt/camera/lib/com.distriqt.Camera.ane"/>
+          <anePathEntry path="F:/ANEs/milkman/CoreMobile/extension/com.milkmangames.extensions.CoreMobile.ane"/>
+          <anePathEntry path="F:/ANEs/milkman/AdMob/extension/com.milkmangames.extensions.AdMob.ane"/>
+        </anePaths>
+        <newLaunchParams/>
+        <modifiedLaunchParams/>
+        <newPackagingParams/>
+        <modifiedPackagingParams/>
+      </airSettings>
       <actionScriptSettings version="1"/>
     </buildTarget>
     <buildTarget buildTargetName="default" isCurrent="true" platformId="default">
